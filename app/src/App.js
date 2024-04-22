@@ -1,20 +1,26 @@
 import "./App.css";
-import Bottone from "./components/Bottone.js";
+import Bottone from "./Bottone.js";
+import { useState } from 'react';
 
-const alunni = [
-  { id: 1, nome: "Claudio", cognome: "Benve" },
-  { id: 2, nome: "Ivan", cognome: "Bruno" },
-  { id: 3, nome: "Ciccio", cognome: "Yang" },
-];
 function App() {
+
+  const[alunni, setAlunni] = useState([]);
+
+  async function loadAlunni(){
+    const response = await fetch('http://localhost:8080/alunni',{method: "GET"});
+    const a = await response.json();
+
+    setAlunni(a);
+  };
+
   return (
     <div className="App">
-      {alunni.map((alunno) => (
-        <Bottone
-          testo={`${alunno.nome} ${alunno.cognome}`}
-          numero={alunno.id}
-        />
-      ))}
+      <button onClick={loadAlunni}>Carica alunni</button>
+      {
+        alunni.map((alunno) => (
+          <Bottone alunno={alunno} key={alunno.id}/>
+        ))
+      }
     </div>
   );
 }

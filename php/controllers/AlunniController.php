@@ -9,7 +9,7 @@ class AlunniController
     $result = $mysqli_connection->query("SELECT * FROM alunni");
     $results = $result->fetch_all(MYSQLI_ASSOC);
 
-    $response->getBody()->write(json_encode($results));
+    $response->getBody()->write(json_encode($results, JSON_NUMERIC_CHECK));
     return $response->withHeader("Content-type", "application/json")->withStatus(200);
   }
 }
