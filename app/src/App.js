@@ -33,11 +33,9 @@ function App() {
     loadAlunni();
     setShowForm(false);
   }
-
   function gestisciCambioNome(e) {
     setNome(e.target.value);
   }
-
   function gestisciCambioCognome(e) {
     setCognome(e.target.value);
   }
@@ -49,13 +47,14 @@ function App() {
       {inCaricamento ? (
         <div>In caricamento... </div>
       ) : (
-        alunni.map((alunno) => (
-          <Alunno alunno={alunno} loadAlunni={loadAlunni} key={alunno.id} />
-        ))
+        <ul>
+          {alunni.map((alunno) => (
+            <Alunno alunno={alunno} loadAlunni={loadAlunni} key={alunno.id} />
+          ))}
+        </ul>
       )}
 
       <button onClick={() => setShowForm(true)}>Inserisci nuovo alunno</button>
-
       {showForm && (
         <div>
           <h1>Form di inserimento</h1>
@@ -63,25 +62,30 @@ function App() {
             Nome:{" "}
             <input
               type="text"
+              placeholder="Inserisci il nome"
               onChange={gestisciCambioNome}
               value={nome}
-              placeholder="inserisci il nome"
-            />
+            ></input>
           </div>
           <div>
             Cognome:{" "}
             <input
               type="text"
+              placeholder="Inserisci il cognome"
               onChange={gestisciCambioCognome}
               value={cognome}
-              placeholder="inserisci il cognome"
-            />
+            ></input>
           </div>
           <button onClick={salvaAlunno}>Salva</button>
           <button onClick={() => setShowForm(false)}>Annulla</button>
+          <div>
+            {nome}
+            {cognome}
+          </div>
         </div>
       )}
     </div>
   );
 }
+
 export default App;
