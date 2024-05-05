@@ -39,7 +39,7 @@ class AlunniController
   public function putAlunniPerId(Request $request, Response $response, $args){
     $postData = json_decode($request->getBody()->getContents(), true);
     $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
-    $result = $mysqli_connection->query("UPDATE alunni SET nome = '".$postData["nome"]."', cognome = '".$postData["cognome"]."' WHERE id = '".$postData["id"]."' ");
+    $result = $mysqli_connection->query("UPDATE alunni SET nome = '".$postData["nome"]."', cognome = '".$postData["cognome"]."' WHERE id = ".$args["id"]);
 
     $results = ["results" => $result];
     if (!$result)

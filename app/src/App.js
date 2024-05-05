@@ -19,8 +19,7 @@ function App() {
     const response = await fetch(`http://localhost:8080/alunni`, {
       method: "GET",
     });
-    const a = await response.json();
-    setAlunni(a);
+    setAlunni(await response.json());
     setInCaricamento(false);
   }
 

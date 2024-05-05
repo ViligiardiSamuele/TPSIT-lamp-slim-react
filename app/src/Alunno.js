@@ -25,8 +25,8 @@ export default function Alunno({ alunno, loadAlunni }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nome: nome, cognome: cognome }),
     });
-    loadAlunni();
     setInMod(false);
+    loadAlunni();
   }
   function richiediConferma() {
     setInConferma(true);
@@ -54,6 +54,7 @@ export default function Alunno({ alunno, loadAlunni }) {
         <>
           {" "}
           - {alunno.nome} {alunno.cognome} -
+          {" "}
         </>
       )}
       {inCancellazione ? (
