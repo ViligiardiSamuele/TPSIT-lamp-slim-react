@@ -1,8 +1,7 @@
 import { useState } from "react";
-import Button from 'react-bootstrap/Button';
-import ListGroupItem from 'react-bootstrap/ListGroupItem';
-import FormControl from "react-bootstrap/FormControl" 
-
+import Button from "react-bootstrap/Button";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import FormControl from "react-bootstrap/FormControl";
 
 export default function Alunno({ alunno, loadAlunni }) {
   const [inCancellazione, setInCancellazione] = useState(false);
@@ -50,15 +49,13 @@ export default function Alunno({ alunno, loadAlunni }) {
   function gestisciCambioCognome(e) {
     setCognome(e.target.value);
   }
-  
+
   return (
     <ListGroupItem>
       {alunno.id}
       {!inModifica && (
         <>
-          {" "}
-          - {alunno.nome} {alunno.cognome} -
-          {" "}
+          {" - "} {alunno.nome} {alunno.cognome}{" "}
         </>
       )}
       {inCancellazione ? (
@@ -68,13 +65,17 @@ export default function Alunno({ alunno, loadAlunni }) {
           {inConferma ? (
             <span>
               Sei sicuro?
-              <Button className="me-1" onClick={cancellaAlunno}>si</Button>
+              <Button className="me-1" onClick={cancellaAlunno}>
+                si
+              </Button>
               <Button onClick={annulla}>no</Button>
             </span>
           ) : (
             <span>
               {!inModifica && (
-                <Button className="me-1" onClick={richiediConferma}>Cancella alunno</Button>
+                <Button className="me-1" onClick={richiediConferma}>
+                  Cancella alunno
+                </Button>
               )}
             </span>
           )}
@@ -87,14 +88,14 @@ export default function Alunno({ alunno, loadAlunni }) {
           {inModifica ? (
             <>
               <FormControl
-                  className="w-50 mx-auto mb-1"
+                className="w-50 mx-auto mb-1"
                 type="text"
                 placeholder="Inserisci il nome"
                 onChange={gestisciCambioNome}
                 value={nome}
               ></FormControl>
               <FormControl
-                  className="w-50 mx-auto mb-1"
+                className="w-50 mx-auto mb-1"
                 type="text"
                 placeholder="Inserisci il cognome"
                 onChange={gestisciCambioCognome}
@@ -102,7 +103,9 @@ export default function Alunno({ alunno, loadAlunni }) {
               ></FormControl>
               <span>
                 Vuoi modificare?
-                <Button className="mx-1" onClick={modificaAlunno}>si</Button>
+                <Button className="mx-1" onClick={modificaAlunno}>
+                  si
+                </Button>
                 <Button onClick={annullaModifica}>no</Button>
               </span>
             </>
