@@ -1,4 +1,8 @@
 import { useState } from "react";
+import Button from 'react-bootstrap/Button';
+import ListGroupItem from 'react-bootstrap/ListGroupItem';
+import FormControl from "react-bootstrap/FormControl" 
+
 
 export default function Alunno({ alunno, loadAlunni }) {
   const [inCancellazione, setInCancellazione] = useState(false);
@@ -7,8 +11,8 @@ export default function Alunno({ alunno, loadAlunni }) {
   const [inConferma, setInConferma] = useState(false);
   const [inModifica, setInModifica] = useState(false);
 
-  const [nome, setNome] = useState("");
-  const [cognome, setCognome] = useState("");
+  const [nome, setNome] = useState(alunno.nome);
+  const [cognome, setCognome] = useState(alunno.cognome);
 
   async function cancellaAlunno() {
     setInCancellazione(true);
@@ -48,7 +52,7 @@ export default function Alunno({ alunno, loadAlunni }) {
   }
   
   return (
-    <li>
+    <ListGroupItem>
       {alunno.id}
       {!inModifica && (
         <>
@@ -64,13 +68,13 @@ export default function Alunno({ alunno, loadAlunni }) {
           {inConferma ? (
             <span>
               Sei sicuro?
-              <button onClick={cancellaAlunno}>si</button>
-              <button onClick={annulla}>no</button>
+              <Button className="me-1" onClick={cancellaAlunno}>si</Button>
+              <Button onClick={annulla}>no</Button>
             </span>
           ) : (
             <span>
               {!inModifica && (
-                <button onClick={richiediConferma}>Cancella alunno</button>
+                <Button className="me-1" onClick={richiediConferma}>Cancella alunno</Button>
               )}
             </span>
           )}
@@ -82,33 +86,35 @@ export default function Alunno({ alunno, loadAlunni }) {
         <span>
           {inModifica ? (
             <>
-              <input
+              <FormControl
+                  className="w-50 mx-auto mb-1"
                 type="text"
                 placeholder="Inserisci il nome"
                 onChange={gestisciCambioNome}
                 value={nome}
-              ></input>
-              <input
+              ></FormControl>
+              <FormControl
+                  className="w-50 mx-auto mb-1"
                 type="text"
                 placeholder="Inserisci il cognome"
                 onChange={gestisciCambioCognome}
                 value={cognome}
-              ></input>
+              ></FormControl>
               <span>
                 Vuoi modificare?
-                <button onClick={modificaAlunno}>si</button>
-                <button onClick={annullaModifica}>no</button>
+                <Button className="mx-1" onClick={modificaAlunno}>si</Button>
+                <Button onClick={annullaModifica}>no</Button>
               </span>
             </>
           ) : (
             <span>
               {!inConferma && (
-                <button onClick={richiediModifica}>Modifica alunno</button>
+                <Button onClick={richiediModifica}>Modifica alunno</Button>
               )}
             </span>
           )}
         </span>
       )}
-    </li>
+    </ListGroupItem>
   );
 }

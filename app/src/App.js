@@ -1,6 +1,13 @@
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Alunno from "./Alunno.js";
 import { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
+import FormControl from "react-bootstrap/FormControl" 
+
+document.body.setAttribute('data-bs-theme', 'dark');
 
 function App() {
   const [alunni, setAlunni] = useState([]);
@@ -40,50 +47,61 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <button onClick={loadAlunni}>Carica alunni</button>
-      <hr />
-      {inCaricamento ? (
-        <div>In caricamento... </div>
-      ) : (
-        <ul>
-          {alunni.map((alunno) => (
-            <Alunno alunno={alunno} loadAlunni={loadAlunni} key={alunno.id} />
-          ))}
-        </ul>
-      )}
+      <div className="App">
+        <Card className="mx-auto w-50 position-absolute top-50 start-50 translate-middle">
+          <Button className="mx-auto w-50 mt-2" onClick={loadAlunni}>
+            Carica alunni
+          </Button>
+          {inCaricamento ? (
+            <div>In caricamento... </div>
+          ) : (
+            <ListGroup className="m-3">
+              {alunni.map((alunno) => (
+                <Alunno
+                  alunno={alunno}
+                  loadAlunni={loadAlunni}
+                  key={alunno.id}
+                />
+              ))}
+            </ListGroup>
+          )}
 
-      <button onClick={() => setShowForm(true)}>Inserisci nuovo alunno</button>
-      {showForm && (
-        <div>
-          <h1>Form di inserimento</h1>
-          <div>
-            Nome:{" "}
-            <input
-              type="text"
-              placeholder="Inserisci il nome"
-              onChange={gestisciCambioNome}
-              value={nome}
-            ></input>
-          </div>
-          <div>
-            Cognome:{" "}
-            <input
-              type="text"
-              placeholder="Inserisci il cognome"
-              onChange={gestisciCambioCognome}
-              value={cognome}
-            ></input>
-          </div>
-          <button onClick={salvaAlunno}>Salva</button>
-          <button onClick={() => setShowForm(false)}>Annulla</button>
-          <div>
-            {nome}
-            {cognome}
-          </div>
-        </div>
-      )}
-    </div>
+          <Button className="mx-auto w-50 mb-2" onClick={() => setShowForm(true)}>
+            Inserisci nuovo alunno
+          </Button>
+          {showForm && (
+            <div>
+              <h1>Form di inserimento</h1>
+              <div>
+                Nome:{" "}
+                <FormControl
+                  type="text"
+                  className="w-50 mx-auto"
+                  placeholder="Inserisci il nome"
+                  onChange={gestisciCambioNome}
+                  value={nome}
+                ></FormControl>
+              </div>
+              <div>
+                Cognome:{" "}
+                <FormControl
+                  className="w-50 mx-auto"
+                  type="text"
+                  placeholder="Inserisci il cognome"
+                  onChange={gestisciCambioCognome}
+                  value={cognome}
+                ></FormControl>
+              </div>
+              <Button className="me-1 my-1" onClick={salvaAlunno}>Salva</Button>
+              <Button className="my-1" onClick={() => setShowForm(false)}>Annulla</Button>
+              <div>
+                {nome}
+                {cognome}
+              </div>
+            </div>
+          )}
+        </Card>
+      </div>
   );
 }
 
